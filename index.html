@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos ご提案｜産業廃棄物処理業 HP制作（Studio構築）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1F1D;
+    --forest:#2E4632;
+    --moss:#7FA06F;
+    --moss-light:#B6CBA6;
+    --steel:#566169;
+    --mist:#E8ECE7;
+    --mist-deep:#DCE3DC;
+    --signal:#D9662F;
+    --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans JP',sans-serif;
+    color:var(--ink);
+    background:var(--mist);
+    line-height:1.85;
+    font-weight:400;
+    letter-spacing:0.02em;
+  }
+  h1,h2,h3,h4{
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:900;
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .label{
+    font-family:'Oswald',sans-serif;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  section{padding:100px 0;}
+  @media(max-width:768px){
+    section{padding:64px 0;}
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    background:rgba(27,31,29,0.92);
+    backdrop-filter:blur(4px);
+    padding:16px 0;
+  }
+  header .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .logo{
+    font-family:'Oswald',sans-serif;
+    color:var(--white);
+    font-size:20px;
+    letter-spacing:0.18em;
+  }
+  .logo span{color:var(--moss-light);}
+  header nav a{
+    color:var(--mist);
+    font-size:13px;
+    margin-left:28px;
+    font-family:'Oswald',sans-serif;
+    letter-spacing:0.08em;
+  }
+  @media(max-width:600px){
+    header nav{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 64px
+      ),
+      linear-gradient(160deg, var(--ink) 0%, var(--forest) 62%, #3E5A3F 100%);
+    color:var(--mist);
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    padding-top:80px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    right:-140px;
+    top:50%;
+    transform:translateY(-50%);
+    width:520px;height:520px;
+    border-radius:50%;
+    border:1px solid rgba(182,203,166,0.25);
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-40px;
+    top:50%;
+    transform:translateY(-50%);
+    width:340px;height:340px;
+    border-radius:50%;
+    border:1px dashed rgba(127,160,111,0.35);
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .hero-tag{
+    display:inline-block;
+    font-family:'Oswald',sans-serif;
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--moss-light);
+    border:1px solid rgba(127,160,111,0.5);
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:28px;
+  }
+  .hero h1{
+    color:var(--white);
+    font-size:clamp(30px,5vw,54px);
+    max-width:760px;
+    margin-bottom:24px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--moss-light);
+  }
+  .hero p{
+    max-width:560px;
+    font-size:16px;
+    color:#CBD6C9;
+    margin-bottom:40px;
+  }
+  .hero-meta{
+    display:flex;
+    gap:36px;
+    flex-wrap:wrap;
+    font-family:'Oswald',sans-serif;
+  }
+  .hero-meta div{border-left:2px solid var(--moss);padding-left:14px;}
+  .hero-meta .num{font-size:26px;color:var(--white);display:block;}
+  .hero-meta .cap{font-size:11px;color:#9BAF9A;letter-spacing:0.1em;}
+
+  /* recycle mark */
+  .rmark{
+    position:absolute;
+    right:60px;
+    bottom:70px;
+    width:150px;
+    height:150px;
+    z-index:2;
+    opacity:0.9;
+  }
+  @media(max-width:900px){.rmark{display:none;} .hero::before,.hero::after{display:none;}}
+  .rmark .tri{
+    position:absolute;
+    width:0;height:0;
+    border-left:26px solid transparent;
+    border-right:26px solid transparent;
+    border-bottom:46px solid var(--moss-light);
+  }
+  .rmark .tri:nth-child(1){top:0;left:50px;transform:rotate(0deg);}
+  .rmark .tri:nth-child(2){top:50px;left:95px;transform:rotate(120deg);}
+  .rmark .tri:nth-child(3){top:50px;left:5px;transform:rotate(240deg);}
+
+  /* ===== SECTION COMMON ===== */
+  .kicker{
+    font-family:'Oswald',sans-serif;
+    color:var(--moss);
+    letter-spacing:0.16em;
+    font-size:13px;
+    margin-bottom:14px;
+  }
+  .sec-title{
+    font-size:clamp(24px,3.4vw,36px);
+    margin-bottom:20px;
+  }
+  .sec-lead{
+    max-width:680px;
+    color:var(--steel);
+    font-size:15px;
+    margin-bottom:56px;
+  }
+
+  /* ===== UNDERSTANDING ===== */
+  .understand{
+    background:var(--white);
+  }
+  .u-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:60px;
+    align-items:start;
+  }
+  @media(max-width:860px){.u-grid{grid-template-columns:1fr;}}
+  .u-text p{color:var(--steel);margin-bottom:18px;font-size:15px;}
+  .u-text strong{color:var(--ink);font-weight:700;}
+
+  .site-map{
+    background:var(--mist);
+    border:1px solid var(--mist-deep);
+    border-radius:6px;
+    padding:26px;
+  }
+  .site-map .cap{
+    font-family:'Oswald',sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--steel);
+    margin-bottom:16px;
+    display:flex;justify-content:space-between;
+  }
+  .page-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+  }
+  @media(max-width:480px){.page-grid{grid-template-columns:repeat(4,1fr);}}
+  .page-grid div{
+    aspect-ratio:1/1;
+    background:var(--white);
+    border:1px solid var(--mist-deep);
+    border-radius:3px;
+    display:flex;
+    align-items:center;justify-content:center;
+    font-family:'Oswald',sans-serif;
+    font-size:11px;
+    color:var(--steel);
+    transition:.2s;
+  }
+  .page-grid div:hover{
+    background:var(--moss);
+    color:var(--white);
+    border-color:var(--moss);
+  }
+
+  .bases{
+    display:flex;
+    justify-content:space-between;
+    margin-top:26px;
+    position:relative;
+  }
+  .bases::before{
+    content:"";
+    position:absolute;
+    top:9px;left:8%;right:8%;
+    height:1px;
+    background:var(--mist-deep);
+    z-index:0;
+  }
+  .base{
+    text-align:center;
+    position:relative;
+    z-index:1;
+    font-size:11px;
+    color:var(--steel);
+    font-family:'Oswald',sans-serif;
+  }
+  .base .dot{
+    width:18px;height:18px;
+    border-radius:50%;
+    background:var(--forest);
+    margin:0 auto 8px;
+    border:3px solid var(--mist);
+  }
+
+  /* ===== VALUE ===== */
+  .value{background:var(--mist);}
+  .v-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  @media(max-width:960px){.v-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.v-grid{grid-template-columns:1fr;}}
+  .v-card{
+    background:var(--white);
+    border-top:4px solid var(--moss);
+    padding:32px 24px;
+    border-radius:4px;
+    transition:.25s;
+  }
+  .v-card:hover{transform:translateY(-6px);box-shadow:0 16px 30px rgba(46,70,50,0.12);}
+  .v-card .vn{
+    font-family:'Oswald',sans-serif;
+    color:var(--moss);
+    font-size:13px;
+    margin-bottom:12px;
+  }
+  .v-card h3{font-size:18px;margin-bottom:12px;}
+  .v-card p{font-size:13.5px;color:var(--steel);}
+
+  /* ===== PROCESS ===== */
+  .process{background:var(--ink);color:var(--mist);}
+  .process .kicker{color:var(--moss-light);}
+  .process .sec-title{color:var(--white);}
+  .process .sec-lead{color:#AEB9AC;}
+  .timeline{
+    position:relative;
+    border-left:2px solid rgba(127,160,111,0.4);
+    margin-left:14px;
+  }
+  .t-item{
+    position:relative;
+    padding:0 0 42px 36px;
+  }
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:"";
+    position:absolute;
+    left:-7px;top:2px;
+    width:12px;height:12px;
+    border-radius:50%;
+    background:var(--moss-light);
+    box-shadow:0 0 0 5px rgba(127,160,111,0.15);
+  }
+  .t-item .tn{
+    font-family:'Oswald',sans-serif;
+    color:var(--moss-light);
+    font-size:13px;
+    margin-bottom:6px;
+    letter-spacing:0.1em;
+  }
+  .t-item h4{color:var(--white);font-size:17px;margin-bottom:8px;}
+  .t-item p{color:#B7C2B5;font-size:13.5px;max-width:560px;}
+  .duration{
+    margin-top:44px;
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    background:rgba(127,160,111,0.12);
+    border:1px solid rgba(127,160,111,0.4);
+    padding:14px 22px;
+    border-radius:6px;
+    font-size:13px;
+    color:var(--mist-deep);
+  }
+  .duration b{color:var(--moss-light);font-family:'Oswald',sans-serif;font-size:18px;}
+
+  /* ===== CLOSING ===== */
+  .closing{
+    background:linear-gradient(120deg,var(--forest),var(--ink) 80%);
+    color:var(--white);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .closing::before{
+    content:"";
+    position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(217,102,47,0.18),transparent 70%);
+    top:-200px;left:50%;
+    transform:translateX(-50%);
+  }
+  .closing-inner{position:relative;z-index:2;}
+  .closing h2{
+    color:var(--white);
+    font-size:clamp(24px,4vw,38px);
+    margin-bottom:18px;
+  }
+  .closing p{
+    color:#C9D3C7;
+    max-width:520px;
+    margin:0 auto 36px;
+    font-size:15px;
+  }
+  .cta-btn{
+    display:inline-block;
+    background:var(--signal);
+    color:var(--white);
+    padding:16px 42px;
+    border-radius:999px;
+    font-family:'Oswald',sans-serif;
+    letter-spacing:0.1em;
+    font-size:14px;
+    box-shadow:0 12px 26px rgba(217,102,47,0.35);
+    transition:.2s;
+  }
+  .cta-btn:hover{transform:translateY(-3px);}
+  .closing-note{
+    margin-top:26px;
+    font-size:12px;
+    color:#8FA08D;
+  }
+
+  footer{
+    background:var(--ink);
+    color:#7C8A79;
+    text-align:center;
+    padding:26px 0;
+    font-size:12px;
+    font-family:'Oswald',sans-serif;
+    letter-spacing:0.08em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">KAIRO<span>S</span></div>
+    <nav>
+      <a href="#understand">理解</a>
+      <a href="#value">提供価値</a>
+      <a href="#process">進め方</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <span class="hero-tag">PROPOSAL FROM KAIROS</span>
+    <h1>20ページの情報を、<br><em>迷わせない</em>一本の動線に。</h1>
+    <p>
+      産業廃棄物・一般廃棄物の処理から総合解体、資源リサイクルまで──
+      幅広い事業と3拠点の情報を、Studioテンプレートという「型」の中で
+      過不足なく、迷いなく届くカタチに構築します。
+    </p>
+    <div class="hero-meta">
+      <div><span class="num">20</span><span class="cap">PAGES</span></div>
+      <div><span class="num">03</span><span class="cap">LOCATIONS</span></div>
+      <div><span class="num">STUDIO</span><span class="cap">TEMPLATE BASE</span></div>
+    </div>
+  </div>
+  <div class="rmark">
+    <div class="tri"></div>
+    <div class="tri"></div>
+    <div class="tri"></div>
+  </div>
+</section>
+
+<section class="understand" id="understand">
+  <div class="wrap">
+    <div class="kicker">01 / UNDERSTANDING</div>
+    <h2 class="sec-title">今回のご依頼、こう理解しています</h2>
+    <p class="sec-lead">
+      ワイヤーフレームはすでにご用意いただいている一方、Studioのデザインテンプレートに
+      最適化されたものではないとのこと。つまり今回の要点は「情報設計の作り直し」と
+      「テンプレートへの精緻な流し込み」の両立にあると捉えています。
+    </p>
+
+    <div class="u-grid">
+      <div class="u-text">
+        <p>
+          総合解体工事、産業廃棄物・一般廃棄物処理、感染性廃棄物処理、フロン類回収、
+          計量証明事業／資源リサイクルと、<strong>専門性の異なる事業が一つのサイトに同居</strong>します。
+          さらに3拠点のアクセス情報、会社沿革、取引実績、お知らせと、性質の異なる情報群が
+          全20ページに渡って広がっています。
+        </p>
+        <p>
+          こうした情報量の多いサイトほど、テンプレートの「型」をそのまま流用するだけでは
+          情報が埋もれ、事業の信頼性が伝わりにくくなります。<strong>ワイヤーフレームの意図を汲みながら、
+          テンプレートの構造にあわせて適切に再設計する</strong>ことが、今回のプロジェクトの成否を分けると
+          考えています。
+        </p>
+        <p>
+          予算感（10〜15万円）と20ページというボリュームを踏まえ、無駄な工程を作らず、
+          Studioの機能を最大限活かした効率的な制作進行をご提案します。
+        </p>
+      </div>
+
+      <div class="site-map">
+        <div class="cap"><span>DIRECTORY MAP</span><span>20 PAGES</span></div>
+        <div class="page-grid">
+          <div>TOP</div><div>会社概要</div><div>代表挨拶</div><div>理念</div><div>沿革</div>
+          <div>アクセス</div><div>事業TOP</div><div>解体工事</div><div>産廃処理</div><div>感染性廃棄物</div>
+          <div>フロン回収</div><div>計量証明</div><div>実績TOP</div><div>お知らせ</div><div>お知らせ詳細</div>
+          <div>問合せ</div><div>ポリシー</div><div>404</div><div>テンプレ</div><div>+α</div>
+        </div>
+        <div class="bases">
+          <div class="base"><div class="dot"></div>拠点 01</div>
+          <div class="base"><div class="dot"></div>拠点 02</div>
+          <div class="base"><div class="dot"></div>拠点 03</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="value" id="value">
+  <div class="wrap">
+    <div class="kicker">02 / WHAT WE PROVIDE</div>
+    <h2 class="sec-title">Kairosがご提供できること</h2>
+    <p class="sec-lead">
+      デザインを1から起こすのではなく、既存の型を「活かしきる」ことに強みがあります。
+      予算内で確実に、20ページを高い完成度で仕上げるための体制です。
+    </p>
+
+    <div class="v-grid">
+      <div class="v-card">
+        <div class="vn">01 / STUDIO</div>
+        <h3>テンプレート実装力</h3>
+        <p>Studioの標準コンポーネントの制約を理解した上で、崩さず・かつ単調にならない情報の流し込みを行います。</p>
+      </div>
+      <div class="v-card">
+        <div class="vn">02 / STRUCTURE</div>
+        <h3>情報の再設計</h3>
+        <p>既存ワイヤーフレームの意図を踏まえつつ、テンプレート構造に合わせて見出し・導線・優先順位を組み直します。</p>
+      </div>
+      <div class="v-card">
+        <div class="vn">03 / SCALE</div>
+        <h3>20ページの一貫性</h3>
+        <p>事業ページごとに情報の粒度がバラつかないよう、共通フォーマットを設計し全ページに適用します。</p>
+      </div>
+      <div class="v-card">
+        <div class="vn">04 / COMMUNICATION</div>
+        <h3>こまめな進捗共有</h3>
+        <p>ページ単位での確認・修正フローを設け、公開前の手戻りを最小限に抑えます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="kicker">03 / PROCESS</div>
+    <h2 class="sec-title">進め方（スケジュールイメージ）</h2>
+    <p class="sec-lead">
+      ご予算・規模感に合わせ、無理のない工程で確実に着地させます。
+    </p>
+
+    <div class="timeline">
+      <div class="t-item">
+        <div class="tn">STEP 01</div>
+        <h4>ヒアリング・素材確認</h4>
+        <p>ワイヤーフレーム、原稿、写真、拠点情報などをお預かりし、全体の情報量を把握します。</p>
+      </div>
+      <div class="t-item">
+        <div class="tn">STEP 02</div>
+        <h4>テンプレート精査・構成調整</h4>
+        <p>Studioテンプレートの構造にあわせ、ワイヤーフレームを再マッピング。ページごとの構成案をすり合わせます。</p>
+      </div>
+      <div class="t-item">
+        <div class="tn">STEP 03</div>
+        <h4>全20ページ実装</h4>
+        <p>Studio上で情報を流し込み、レスポンシブ含めて実装。事業ページは共通フォーマットで効率的に展開します。</p>
+      </div>
+      <div class="t-item">
+        <div class="tn">STEP 04</div>
+        <h4>レビュー・修正</h4>
+        <p>全ページを通しでご確認いただき、表記・レイアウトの微調整を行います。</p>
+      </div>
+      <div class="t-item">
+        <div class="tn">STEP 05</div>
+        <h4>公開・アフターフォロー</h4>
+        <p>公開後の軽微な修正にも対応。運用開始後のご相談も承ります。</p>
+      </div>
+    </div>
+
+    <div class="duration">
+      想定制作期間　<b>約3〜4週間</b>
+    </div>
+  </div>
+</section>
+
+<section class="closing" id="contact">
+  <div class="wrap closing-inner">
+    <h2>情報を、迷わせないカタチに。</h2>
+    <p>
+      20ページという規模も、専門性の高い事業内容も、
+      整理次第で「伝わるサイト」になります。まずは一度、
+      お気軽にご相談ください。
+    </p>
+    <a href="#" class="cta-btn">応募・お問い合わせをする</a>
+    <div class="closing-note">自己紹介・実績・お見積もりのご提示、いつでもお待ちしております。</div>
+  </div>
+</section>
+
+<footer>
+  KAIROS ／ WEB &amp; SYSTEM DEVELOPMENT TEAM
+</footer>
+
+</body>
+</html>
